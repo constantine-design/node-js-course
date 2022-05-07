@@ -5,6 +5,7 @@ class loginDataProvider {
     constructor() {
         this.cache = null;
         this.filepath = path.join(__dirname,'..','..','..','data','logins.json');
+        this.dirpath = path.join(__dirname,'..','..','..','data');
     }
     async getItems() {
         if (this.cache) return this.cache;
@@ -25,6 +26,7 @@ class loginDataProvider {
         return this.cache;
     }
     async setItem(item) {
+        if(!fs.existsSync(this.dirpath)) fs.mkdirSync(this.dirpath);
         if (!this.cache) this.cache = await this.getItems();
         this.cache.push(item);
         const file$ = fs.createWriteStream( this.filepath,  { encoding: 'utf8' } );
