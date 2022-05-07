@@ -1,0 +1,6 @@
+node_modules
+data/logins.json
+build
+npm-debug.log
+.env
+.DS_Store

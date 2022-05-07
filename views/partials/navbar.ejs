@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand" href="#">Chat App</a>
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav text-center ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Chat</a>
+      </li>
+      <% if(!session.user){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+      <% } %>
+      <li class="nav-item">
+        <a class="nav-link" href="/users">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-dark mx-3" href="<%= !session.user?'/login':'/logout' %>">
+          <%= !session.user?'Login':'Log out' %>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<% if(session.user){ %>
+  <div class="container text-center my-1"><small>You logged as: <b><%= session.user %></b></small></div>
+<% } %>

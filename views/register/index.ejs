@@ -1,0 +1,29 @@
+<%- include('../partials/header'); -%>
+
+    <div class="d-flex flex-column" style="min-height: 100vh">
+      <%- include('../partials/navbar'); -%>
+      <div class="starter-template flex-grow-1 d-flex flex-column justify-content-center">
+        <div class="mx-auto mb-5" style="width: 500px; max-width: 100%">
+          <h2 class="text-center mt-5 mb-4">Register new user</h2>
+          <form method="post">
+            <div class="form-group">
+              <input class="form-control mb-3" name="login" placeholder="Login" required  />
+              <input class="form-control mb-4" name="password" type="password" placeholder="Password" required />
+              <input class="form-control mb-4" name="password2" type="password" placeholder="Repeat password" required />
+              <input class="form-control mb-3" name="email" type="email" placeholder="Email" required />
+              <input class="form-control mb-4" name="birth" type="date" placeholder="Birth date" required />
+            </div>
+            <% if (errorMessage) { %>
+              <div class="alert alert-danger">
+                <strong>Please correct data:</strong> <%= errorMessage %>.
+              </div>
+            <% } %>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<%- include('../partials/footer'); -%>
