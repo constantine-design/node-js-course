@@ -13,9 +13,9 @@ const formSchema = Joi.object().keys({
   password2: Joi.string()
     .min(5)
     .max(50)
-    .required()
     .valid(Joi.ref('password'))
-    .messages({ 'string.valid': `Passwords did not match` }),
+    .required()
+    .messages({ 'any.only': `Passwords did not match` }),
   birth: Joi.date()
     .required()
     .greater(Date.now() - 100*365*24*60*60*1000)
