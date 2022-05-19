@@ -1,23 +1,16 @@
 const { Router } = require('express');
-const bp = require('body-parser');
-const Joi = require('joi');
-const { send } = require('express/lib/response');
 const { loginProvider } = require('../../logins');
-const { formSchema } = require('../../validate');
+const { mwValidation } = require('../../validate');
 
 registerRouter = Router();
-registerRouter.use(bp.json());
-registerRouter.use(bp.urlencoded({ extended: true }));
 
 registerRouter.get('/', (req, res)=>{
-    res.render('register/index.ejs', { errorMessage: false });
+    res.render('register/index.ejs', { errorMessage: false, values: false });
 });
 
-registerRouter.post('/', async (req, res)=>{
-  
-    const result = formSchema.validate(req.body);
+registerRouter.post('/', mwValidation, async (req, res)=>{
 
-    if (!result.error) {
+    if (!req.notvalidated) {
         await loginProvider.setItem({ 
             login: req.body.login, 
             password: req.body.password,
@@ -27,9 +20,9 @@ registerRouter.post('/', async (req, res)=>{
         req.session.user = req.body.login;
         res.redirect('/');
     } else {
-        res.render('register/index.ejs', { errorMessage: result.error.details[0].message });
+        res.render('register/index.ejs', { errorMessage: req.notvalidated, values: req.body });
     }
+    
 });
-
 
 module.exports = { registerRouter };

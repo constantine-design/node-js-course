@@ -8,11 +8,17 @@
             <h2 class="text-center mb-4">Users</h2>
             <div class="border rounded bg-light text-dark mx-auto my-3 py-4 px-3 text-center" style="min-height:350px; width:350px">
               <ul class="mb-5 mx-auto pl-3 d-inline-block text-left">
-                <% for (var i = 0; i < users.length; i++) { %>
+                <% for (let i = 0; i < users.length; i++) { %>
+                  <% 
+                    let birthStr = users[i].birth.match(/^([0-9]+)-/); 
+                    let yearNow = new Date().getFullYear();
+                    let age = parseInt(yearNow) - parseInt(birthStr[1]);  
+                  %>
                   <li class="timeline-yellow">
                     <%= users[i].login %>
+                    <strong> (<%= age %>y)</strong>                
                   </li>
-                  <% } %>
+                <% } %>
               </ul>
             </div>
           </div>
@@ -21,4 +27,3 @@
     </div>
 
 <%- include('../partials/footer'); -%>
-

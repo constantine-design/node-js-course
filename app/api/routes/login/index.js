@@ -1,11 +1,7 @@
 const { Router } = require('express');
-const bp = require('body-parser');
-const { send } = require('express/lib/response');
 const { loginProvider } = require('../../logins');
 
 loginRouter = Router();
-loginRouter.use(bp.json());
-loginRouter.use(bp.urlencoded({ extended: true }));
 
 loginRouter.get('/', (req, res)=>{
     let isLogged = false;
@@ -22,7 +18,7 @@ loginRouter.post('/', async (req, res)=>{
             isLogged = user.login;
         } 
     }
-    res.render('login/index.ejs');
+    res.redirect('/');
 });
 
 module.exports = { loginRouter };

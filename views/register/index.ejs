@@ -7,11 +7,11 @@
           <h2 class="text-center mt-5 mb-4">Register new user</h2>
           <form method="post">
             <div class="form-group">
-              <input class="form-control mb-3" name="login" placeholder="Login" required  />
-              <input class="form-control mb-4" name="password" type="password" placeholder="Password" required />
-              <input class="form-control mb-4" name="password2" type="password" placeholder="Repeat password" required />
-              <input class="form-control mb-3" name="email" type="email" placeholder="Email" required />
-              <input class="form-control mb-4" name="birth" type="date" placeholder="Birth date" required />
+              <input class="form-control mb-3" name="login" placeholder="Login" value="<%= values.login %>" required  />
+              <input class="form-control mb-4" name="password" type="password" placeholder="Password" value="<%= values.password %>" required />
+              <input class="form-control mb-4" name="password2" type="password" placeholder="Repeat password" value="<%= values.password2 %>" required />
+              <input class="form-control mb-3" name="email" type="email" placeholder="Email" value="<%= values.email %>" required />
+              <input class="form-control mb-4" name="birth" type="date" placeholder="Birth date" value="<%= values.birth %>" required />
             </div>
             <% if (errorMessage) { %>
               <div class="alert alert-danger">
