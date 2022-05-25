@@ -1,0 +1,4 @@
+{
+    "dbConnectionString": "mongodb+srv://hiellel:yusAnKFEAgpIIAfQ@hillel.stvea.mongodb.net/test",
+    "srvPort": 3000
+}

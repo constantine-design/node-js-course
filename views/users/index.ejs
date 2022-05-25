@@ -15,8 +15,7 @@
                     let age = parseInt(yearNow) - parseInt(birthStr[1]);  
                   %>
                   <li class="timeline-yellow">
-                    <%= users[i].login %>
-                    <strong> (<%= age %>y)</strong>                
+                    <span><%= users[i].login %></span><strong class="ml-1">(<%= age %>y)</strong>                
                   </li>
                 <% } %>
               </ul>
