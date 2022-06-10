@@ -1,0 +1,7 @@
+<ul class="list-group">
+    <% users.forEach((user)=>{ %>
+      <a class="list-group-item list-group-item-action" href="?msgto=<%= user.login %>">
+        <%= user.login %>
+      </a>
+    <% }) %>
+  </ul>

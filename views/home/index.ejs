@@ -1,27 +1,30 @@
 <%- include('../partials/header'); -%>
 
     <div class="d-flex flex-column" style="min-height: 100vh">
+
       <%- include('../partials/navbar'); -%>
+      
       <div class="starter-template flex-grow-1 d-flex flex-column justify-content-center">
-        <div class="mx-auto mb-5" style="max-width: 600px;">
-          <div>
-            <% if(session.user){ %>
-              <h1 class="h2 text-center mb-4">Messages</h1>
-              <div class="border rounded bg-light text-dark mx-auto my-3 py-4 px-3" style="min-height:350px; width:500px">
-                <ul class="mb-5 mx-auto pl-3" style="max-width: 500px">
-                  <%= messages %>
-                </ul>
-              </div>
+        <div class="container">
+
+            <% if(session.user) {%>
+
+              <% if(!session.isValidationRequired) {%>
+
+                <%- include('content-chat.ejs', {messages, users}); -%>
+
+              <% } else {%>
+
+                <%- include('content-need-validate.ejs',); -%>
+
+              <% } %>
+
             <% } else { %>
-              <div class="text-center">
-                <h1 class="h3 text-center mb-1">You are not logged</h1>
-                <div class="lead mb-4">Register or sign in</div>
-                <a class="btn btn-dark mx-3 mb-3" href="/login" style="width: 100px">Login</a>
-                <br>
-                <a class="btn btn-dark mx-3 mb-3" href="/register" style="width: 100px">Register</a>
-              </div>
+
+              <%- include('content-not-registered.ejs'); -%>
+
             <% } %>
-          </div>
+
         </div>
       </div>
     </div>

@@ -1,0 +1,28 @@
+version: '3'
+services:
+  chat-app:
+    build: 
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - 3030:3000
+    command: npx nodemon -L server.js
+    networks:
+      - local
+    links:
+      - db
+    volumes:
+      - .:/app
+  db:
+    image: mongo:latest
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - 27017:27017
+    networks:
+      - local
+    volumes:
+      - ../data-volumes/db:/data/db
+networks:
+  local:

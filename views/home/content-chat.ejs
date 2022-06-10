@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-3">
+    <div  style="height: 70vh; overflow-y: auto">
+
+      <%- include('user-items.ejs', {users}); -%>
+    
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="border rounded p-3">
+      <h1 class="h4 my-0"><%= usertochat ? 'Messages with: '+usertochat : 'Select user' %></h1>
+    </div>
+    <div id="chat" class="border rounded bg-light text-dark my-2 py-4 px-3" style="height: 50vh; overflow-y: scroll">
+
+      <%- include('chat-items.ejs', {messages}); -%>
+
+    </div>
+    <form method="post">
+      <textarea name="message" class="form-control w-100 mt-2 mb-2" rows="2" placeholder="New message..." <%= usertochat ? '' : 'disabled="disabled"' %>></textarea>
+      <input type="submit" class="btn btn-outline-dark px-4 d-block ml-auto" value="Send" <%= usertochat ? '' : 'disabled="disabled"' %>>
+    </form>
+  </div>
+</div>
+
+<script>
+  var myDiv = document.getElementById("chat");
+    myDiv.scrollTop = myDiv.scrollHeight;
+</script>

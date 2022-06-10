@@ -1,5 +1,9 @@
 const { Router } = require('express');
+const bcrypt = require('bcryptjs');
 const { User } = require('../../../../models');
+const { v4: uuidv4 } = require('uuid');
+const { registerValidation } = require('../../validation');
+const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../emailSend');
 
 registerRouter = Router();
 
@@ -7,36 +11,53 @@ registerRouter.get('/', (req, res)=>{
     res.render('register/index.ejs', { errorMessage: false, values: false });
 });
 
-registerRouter.post('/', async (req, res)=>{
-    let newUser = false;
-    let errorsList = [];
+registerRouter.post('/', registerValidation, async (req, res)=>{
 
+    let errorsList = ('errorsList' in req) ? req.errorsList : []; // check if there errors im middleware if exist
+
+    // hash password asyncronicaly before create new user
+    const hashedPassword = await new Promise((resolve, reject) => {
+        bcrypt.hash(req.body.password, 10, function(err, hash) {
+          if (err) reject(err)
+          resolve(hash)
+        });
+    })
+
+    // create new user to check if data match
     const user = new User({ 
         login: req.body.login, 
-        password: req.body.password,
+        password: hashedPassword,
         email: req.body.email,
         birth: req.body.birth,
+        isValidationRequired: uuidv4()
     });
 
-    // add schema errors to errorList
+    // add schema errors if there some to errorList if there one
+    // -------------------------------
     const schemaErrors = user.validateSync();
-    if (schemaErrors) errorsListconcat(Object.values(schemaErrors.errors).map(val => val.message));
-    // add password confirm match to errorList
-    if (req.body.password !== req.body.password_confirmation) errorsList.push('Passwords should match');
-    // check if login unique and add to errorList
-    const isLoginNonUnique = await User.findOne({login: req.body.login});
-    if (isLoginNonUnique) errorsList.push(`Login \"${isLoginNonUnique.login}\" allready taken`);
-    // check if birth date too old or too young
-    const age = new Date().getFullYear() - new Date(req.body.birth).getFullYear()
-    if (age > 110) errorsList.push('Birth date incorrect, too old');
-    if (age < 13) errorsList.push('You cant use this chat if you under 13');
+    if (schemaErrors) errorsList.concat(Object.values(schemaErrors.errors).map(val => val.message));
+
  
-    // manage routes
+    // route if data entered correctly an not
     if (errorsList.length === 0) {
-        newUser = await user.save();
-        if (newUser) req.session.user = newUser.login;
+        const newUser = await user.save();
+        // if user created successfully login user
+        if (newUser) {
+            // add session vars
+            req.session.user = newUser.login;
+            req.session.email = newUser.email;
+            req.session.isValidationRequired = newUser.isValidationRequired;
+            // send validation email
+            sendEmail(
+                newUser.email,
+                htmlEmailConfirmSubject,
+                htmlEmailConfirm(req.protocol+'://'+req.get('host')+'/evalidate/?v='+newUser.isValidationRequired)
+            );
+        }
+        // go to home if success
         res.redirect('/');
     } else {
+        // try again if there is errors
         res.render('register/index.ejs', { errorMessage: errorsList.join(', '), values: req.body });
     }
 

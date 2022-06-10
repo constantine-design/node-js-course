@@ -1,7 +1,9 @@
 <%- include('../partials/header'); -%>
 
     <div class="d-flex flex-column" style="min-height: 100vh">
+
       <%- include('../partials/navbar'); -%>
+
       <div class="starter-template flex-grow-1 d-flex flex-column justify-content-center">
         <div class="mx-auto mb-5" style="max-width: 600px;">
           <div>
@@ -14,7 +16,7 @@
                     let yearNow = new Date().getFullYear();
                     let age = parseInt(yearNow) - parseInt(birthStr[1]);  
                   %>
-                  <li class="timeline-yellow">
+                  <li class="<%= users[i].isValidationRequired ? 'text-muted' : '' %>">
                     <span><%= users[i].login %></span><strong class="ml-1">(<%= age %>y)</strong>                
                   </li>
                 <% } %>
