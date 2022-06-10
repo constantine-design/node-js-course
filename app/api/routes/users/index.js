@@ -1,11 +1,5 @@
-const { Router } = require('express');
-const { loginProvider } = require('../../logins');
+const { usersRouter } = require('./usersRouter.js');
 
-usersRouter = Router();
-
-usersRouter.get('/', async (req, res)=>{
-    let allUsers = await loginProvider.getItems();
-    res.render('users/index.ejs', { users : allUsers });
-});
-
-module.exports = { usersRouter };
+module.exports = { 
+    usersRouter 
+};

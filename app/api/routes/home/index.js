@@ -1,9 +1,7 @@
-const { Router } = require('express');
+const { homeRouter } = require('./homeRouter.js');
 
-homeRouter = Router();
+ module.exports = {
+    homeRouter
+ };
 
-homeRouter.get('/', (req, res)=>{
-    res.render('home/index.ejs', { messages : '...HIDDEN CONTENT...' });
-});
 
-module.exports = { homeRouter };

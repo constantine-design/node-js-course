@@ -3,7 +3,6 @@ const session = require('express-session');
 const path = require('path');
 const bp = require('body-parser');
 
-
 // import routers
 const { homeRouter } = require('./api/routes/home');
 const { registerRouter } = require('./api/routes/register');
@@ -41,7 +40,5 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/users', usersRouter);
 app.use('/logout', logOut);
-
-
 
 module.exports = { app };

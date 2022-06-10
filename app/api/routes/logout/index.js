@@ -1,10 +1,5 @@
-const { Router } = require('express');
+const { Router } = require('./logOut.js');
 
-logOut = Router();
-
-logOut.get('/', (req, res)=>{
-    req.session.destroy();
-    res.redirect('/');
-});
-
-module.exports = { logOut };
+module.exports = { 
+    logOut 
+};
