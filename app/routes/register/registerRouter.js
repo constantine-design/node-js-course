@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const bcrypt = require('bcryptjs');
-const { User } = require('../../../../models');
+const { User } = require('../../../models');
 const { v4: uuidv4 } = require('uuid');
-const { registerValidation } = require('../../validation');
-const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../emailSend');
+const { registerValidation } = require('../../services/validation');
+const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../services/emailSend');
 
 registerRouter = Router();
 

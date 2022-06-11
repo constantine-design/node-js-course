@@ -4,13 +4,13 @@ const path = require('path');
 const bp = require('body-parser');
 
 // import routers
-const { homeRouter } = require('./api/routes/home');
-const { registerRouter } = require('./api/routes/register');
-const { loginRouter } = require('./api/routes/login');
-const { usersRouter } = require('./api/routes/users');
-const { logOut } = require('./api/routes/logout');
-const { emailValidateRouter } = require('./api/routes/evalidate');
-const { emailResendRouter } = require('./api/routes/mailresend');
+const { homeRouter } = require('./routes/home');
+const { registerRouter } = require('./routes/register');
+const { loginRouter } = require('./routes/login');
+const { usersRouter } = require('./routes/users');
+const { logOut } = require('./routes/logout');
+const { emailValidateRouter } = require('./routes/evalidate');
+const { emailResendRouter } = require('./routes/mailresend');
 
 // initialize express
 const app = express();

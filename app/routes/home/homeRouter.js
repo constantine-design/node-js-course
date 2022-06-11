@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { User, Message } = require('../../../../models');
+const { User, Message } = require('../../../models');
 
 homeRouter = Router();
 

@@ -1,6 +1,6 @@
 const { Router } = require('express');
-const { User } = require('../../../../models');
-const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../emailSend');
+const { User } = require('../../../models');
+const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../services/emailSend');
 
 emailResendRouter = Router();
 
