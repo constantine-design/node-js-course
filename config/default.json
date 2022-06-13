@@ -10,5 +10,7 @@
           "user": false,
           "pass": false
         }
-    }
+    },
+    "tokenSecret": "Gfkh86VgjJ67HVJhg6hjs8bhsdjlsfjdur",
+    "tokenExpire": "1d"
 }

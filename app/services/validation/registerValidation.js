@@ -12,15 +12,15 @@ const registerValidation = async (req, res, next) => {
 
     // check if login unique and length etc and add to errorList
     if (!(/^\S*$/.test(req.body.login))) errorsList.push('No whitespaces in name alowed');
-    if (req.body.login.length<3) errorsList.push('Minimum login length 3 symblos');
-    if (req.body.login.length>30) errorsList.push('Maximum login length 30 symblos');
+    if (req.body.login && req.body.login.length<3) errorsList.push('Minimum login length 3 symblos');
+    if (req.body.login && req.body.login.length>30) errorsList.push('Maximum login length 30 symblos');
     const isLoginNonUnique = await User.findOne({login: req.body.login});  // request to check if login NOT unique
     if (isLoginNonUnique) errorsList.push(`Login \"${isLoginNonUnique.login}\" allready taken`);
 
     // add password confirm match and length to errorList
     if (req.body.password !== req.body.password_confirmation) errorsList.push('Passwords should match');
-    if (req.body.password.length<5 || req.body.password_confirmation.length<5) errorsList.push('Minimum password length 5 symblos');
-    if (req.body.password.length>50 || req.body.password_confirmation.length>50) errorsList.push('Maximum password length 50 symblos');
+    if (req.body.password && req.body.password_confirmation && (req.body.password.length<5 || req.body.password_confirmation.length<5)) errorsList.push('Minimum password length 5 symblos');
+    if (req.body.password && req.body.password_confirmation && (req.body.password.length>50 || req.body.password_confirmation.length>50)) errorsList.push('Maximum password length 50 symblos');
 
     // check if birth date too old or too young
     const age = new Date().getFullYear() - new Date(req.body.birth).getFullYear()
