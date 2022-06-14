@@ -11,8 +11,8 @@ const MessageSchema = new Schema({
         required: true
     },
     date: {
-        type: Number,
-        default: new Date()
+        type: Date,
+        default: Date.now
     },
     message: {
         type: String,

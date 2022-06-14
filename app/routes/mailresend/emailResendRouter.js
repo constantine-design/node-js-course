@@ -1,8 +1,10 @@
 const { Router } = require('express');
-const { User } = require('../../../../models');
-const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../emailSend');
+const { User } = require('../../../models');
+const { sendEmail, htmlEmailConfirm, htmlEmailConfirmSubject } = require('../../services/emailSend');
 
 emailResendRouter = Router();
+
+// resending registration email must be auth for this
 
 emailResendRouter.get('/', (req, res)=>{
     if (req.session.user && req.session.email && req.session.isValidationRequired) {
@@ -14,5 +16,6 @@ emailResendRouter.get('/', (req, res)=>{
     }
     res.redirect('/');
 });
+
 
 module.exports = { emailResendRouter };

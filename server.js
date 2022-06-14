@@ -2,7 +2,7 @@ const { app } = require('./app');
 const config = require('config');
 const mongoose = require('mongoose');
 
-const PORT = config.get('srvPort');
+const PORT = process.env.PORT || config.get('srvPort');
 
 mongoose.connect(config.get('dbConnectionString'))
     .then(()=> {

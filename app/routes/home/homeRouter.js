@@ -1,13 +1,15 @@
 const { Router } = require('express');
-const { User, Message } = require('../../../../models');
+const { User, Message } = require('../../../models');
 
 homeRouter = Router();
+
 
 homeRouter.get('/', async (req, res)=>{
     const allMessages = await Message.find({from: {$in: [req.session.user, req.query.msgto]}, to: {$in: [req.session.user, req.query.msgto]}});
     const allUsers = await User.find({isValidationRequired: '', login: {$ne : req.session.user}});
     res.render('home/index.ejs', { messages : allMessages, users: allUsers, usertochat: req.query.msgto });
 });
+
 
 homeRouter.post('/', async (req, res)=>{
     // check with if user to message selected exists and validated
@@ -25,5 +27,6 @@ homeRouter.post('/', async (req, res)=>{
     const parameter = userToSend ? "?msgto="+req.query.msgto : '';
     res.redirect('/'+parameter);
 });
+
 
 module.exports = { homeRouter };
