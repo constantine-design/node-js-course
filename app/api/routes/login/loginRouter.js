@@ -1,4 +1,5 @@
 const { Router } = require('express');
+var bcrypt = require('bcryptjs');
 const { User } = require('../../../../models');
 
 loginRouter = Router();
@@ -9,15 +10,24 @@ loginRouter.get('/', (req, res)=>{
 
 loginRouter.post('/', async (req, res)=>{
     let query = await User.findOne({login: req.body.login})
-        .exec((err, user)=>{
+        .exec(async (err, user)=>{
+            //check if user exists
             if (user) {
-                if (user.password && user.password === req.body.password) {
+                const isPasswordsMatch = await bcrypt.compare(req.body.password, user.password);
+                // check if pass is correct
+                if (isPasswordsMatch) {
+                    // write session vars on success
                     req.session.user = user.login;
+                    req.session.email = user.email;
+                    req.session.isValidationRequired = user.isValidationRequired;
+                    // redirect home on success
                     res.redirect('/');
                 } else {
+                    // if pass is incorrect
                     res.render('login/index.ejs', { errorMessage: "Password incorrect" });
                 }
             } else {
+                // if login is icorrect
                 res.render('login/index.ejs', { errorMessage: "Login incorrect" });
             }
         });
