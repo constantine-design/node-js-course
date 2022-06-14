@@ -12,12 +12,6 @@ const { logOut } = require('./routes/logout');
 const { emailValidateRouter } = require('./routes/evalidate');
 const { emailResendRouter } = require('./routes/mailresend');
 
-// import api
-const { loginApi } = require('./api/login');
-const { chatApi } = require('./api/chat');
-const { registerApi } = require('./api/register');
-const { emailResendApi } = require('./api/mailresend');
-const { usersApi } = require('./api/users');
 
 // initialize express
 const app = express();
@@ -51,11 +45,5 @@ app.use('/users', usersRouter);
 app.use('/logout', logOut);
 app.use('/evalidate', emailValidateRouter);
 app.use('/mailresend', emailResendRouter);
-// api routes
-app.use('/api/login', loginApi);
-app.use('/api/chat', chatApi);
-app.use('/api/register', registerApi);
-app.use('/api/mailresend', emailResendApi);
-app.use('/api/users', usersApi);
 
 module.exports = { app };

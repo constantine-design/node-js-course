@@ -1,5 +1,5 @@
 {
-    "dbConnectionString": "mongodb+srv://hiellel:yusAnKFEAgpIIAfQ@hillel.stvea.mongodb.net/",
+    "dbConnectionString": "mongodb://db:27017/hillel",
     "srvPort": 3000,
     "appEmail": "chat-app@chat-app.com",
     "mailSettings" : {
