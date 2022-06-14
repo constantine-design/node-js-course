@@ -1,6 +1,6 @@
 {
     "dbConnectionString": "mongodb+srv://hiellel:yusAnKFEAgpIIAfQ@hillel.stvea.mongodb.net/",
-    "srvPort": 3000,
+    "srvPort": 80,
     "appEmail": "chat-app@chat-app.com",
     "mailSettings" : {
         "host": "smtp.freesmtpservers.com",
