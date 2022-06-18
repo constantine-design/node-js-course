@@ -28,5 +28,5 @@
 </nav>
 
 <% if(session.user){ %>
-  <div class="container text-center my-1"><small>You logged as: <b><%= session.user %></b></small></div>
+  <div class="container text-center my-1" id="login-user" data-user="<%= session.user %>"><small>You logged as: <b><%= session.user %></b></small></div>
 <% } %>

@@ -15,8 +15,8 @@
       <%- include('chat-items.ejs', {messages}); -%>
 
     </div>
-    <form method="post">
-      <textarea name="message" class="form-control w-100 mt-2 mb-2" rows="2" placeholder="New message..." <%= usertochat ? '' : 'disabled="disabled"' %>></textarea>
+    <form id="chat-form" method="post">
+      <textarea id="chat-message" name="message" class="form-control w-100 mt-2 mb-2" rows="2" placeholder="New message..." <%= usertochat ? '' : 'disabled="disabled"' %>></textarea>
       <input type="submit" class="btn btn-outline-dark px-4 d-block ml-auto" value="Send" <%= usertochat ? '' : 'disabled="disabled"' %>>
     </form>
   </div>
@@ -24,5 +24,5 @@
 
 <script>
   var myDiv = document.getElementById("chat");
-    myDiv.scrollTop = myDiv.scrollHeight;
+  myDiv.scrollTop = myDiv.scrollHeight;
 </script>

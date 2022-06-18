@@ -1,4 +1,4 @@
-<ul class="p-0 m-0">
+<ul id="chat-body" class="p-0 m-0">
   <% messages.forEach((message)=>{ %>
     <li class="list-unstyled mb-4 <%= (message.from==session.user) ? 'text-right' : 'text-left' %>">
       <div class="h6 mb-1 px-1">

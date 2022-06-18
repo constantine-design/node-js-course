@@ -29,5 +29,74 @@
       </div>
     </div>
 
+
+    <script type="module">
+
+      import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+      
+      // get chat current data
+      const urlParams = new URLSearchParams(window.location.search);
+      const msgto = urlParams.get('msgto');
+      const userDiv = document.getElementById('login-user');
+      const currentUser = userDiv ? userDiv.dataset.user : null;
+
+      // initiate socket connection
+      const socket = io();
+      const connection = io('ws://localhost:3000');
+    
+      socket.on('connect', () => {
+
+        // send to backend converation details
+        socket.emit('join', { from: currentUser, to: msgto});
+
+        // replace submit event and emit new message event 
+        document.forms["chat-form"].addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const message = document.getElementById('chat-message').value;
+          socket.emit('onUpdate:client', { 
+            from: currentUser, 
+            to: msgto,
+            message: message
+          });
+          document.getElementById('chat-message').value = "";
+        });
+
+        // on update messases own or from counterpart
+        socket.on('onUpdate:server', payload => {
+          // insert item to chat
+          const userDiv = document.getElementById('login-user');
+          const currentUser = userDiv ? userDiv.dataset.user : null;
+          const isOwnMsg = (currentUser == payload.from) ? true : false;
+          document.getElementById('chat-body').innerHTML += msgHTML(payload.from, payload.message, payload.date, isOwnMsg);
+          // scroll chat to bottom with js
+          const myDiv = document.getElementById("chat");
+          myDiv.scrollTop = myDiv.scrollHeight;
+          console.log('payload=', payload);
+        });
+
+      });
+
+      // html for message to add
+      function msgHTML(from, message, time, left=false) {
+        const body = `
+        <li class="list-unstyled mb-4 ${left?'text-right':'text-left'}">
+          <div class="h6 mb-1 px-1">
+            ${from}
+          </div>
+          <div  class="border rounded-lg bg-white d-inline-block pt-3" style="max-width: 80%">
+            <div class="mx-3 h6 font-weight-normal">
+              ${message}
+            </div>
+            <div class="small pt-1 px-1 pb-1">
+              ${time}
+            </div>
+          </div>
+        </li>
+        `;
+        return body;
+      }
+    
+    </script>
+
 <%- include('../partials/footer'); -%>
 
