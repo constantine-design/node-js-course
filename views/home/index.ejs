@@ -29,5 +29,9 @@
       </div>
     </div>
 
+    <% if(session.user && !session.isValidationRequired) {%>
+      <script type="module" src="./public/js/sockets.js?v=1.02"></script>
+    <% } %>
+
 <%- include('../partials/footer'); -%>
 
